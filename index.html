@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>窪川高校Q&Aガイド</title>
+  <style>
+    :root {
+      --bg: #fff7fb;
+      --card: #ffffff;
+      --line: #ffd5e5;
+      --text: #2f2340;
+      --muted: #6f6284;
+      --accent: #ff5c8a;
+      --accent-2: #fff0f6;
+      --accent-blue: #7b7cff;
+      --accent-yellow: #ffbf47;
+      --accent-mint: #47d7ac;
+      --shadow: 0 16px 32px rgba(160, 82, 138, .12);
+      --radius: 18px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 111, 161, .18), transparent 28%),
+        radial-gradient(circle at top right, rgba(123, 124, 255, .16), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(71, 215, 172, .14), transparent 24%),
+        linear-gradient(180deg, #fff5fb 0%, #f9fbff 38%, #fffaf3 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .hero { padding: 40px 0 24px; }
+    .hero-box {
+      background: linear-gradient(135deg, #ff6fa1 0%, #8e7dff 58%, #41d6c3 100%);
+      color: #fff;
+      border-radius: 28px;
+      padding: 34px 28px;
+      box-shadow: 0 22px 40px rgba(129, 82, 150, .22);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-box::before {
+      content: '';
+      position: absolute;
+      inset: -55px auto auto -30px;
+      width: 180px;
+      height: 180px;
+      background: rgba(255,255,255,.14);
+      border-radius: 999px;
+      filter: blur(4px);
+    }
+    .hero-box::after {
+      content: '';
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 180px;
+      height: 180px;
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+    }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      letter-spacing: .04em;
+      margin-bottom: 10px;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 5vw, 42px); line-height: 1.2; }
+    .lead { margin: 0; color: rgba(255,255,255,.95); font-size: 15px; max-width: 860px; }
+    .hero-icons { display:flex; flex-wrap:wrap; gap:10px; margin-top: 20px; }
+    .hero-icons span {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.24);
+      box-shadow: 0 8px 18px rgba(82, 44, 112, .14);
+      font-size: 22px;
+      backdrop-filter: blur(8px);
+    }
+    .section-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin: 28px 0 14px; }
+    .section-title h2 { margin: 0; font-size: 24px; }
+    .section-title p { margin: 0; color: var(--muted); font-size: 14px; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .category-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fff7fb 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+    }
+    .category-card:nth-child(3n+2)::before {
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-mint));
+    }
+    .category-card:nth-child(3n)::before {
+      background: linear-gradient(90deg, var(--accent-yellow), var(--accent));
+    }
+    .category-card:hover, .category-card.active {
+      transform: translateY(-4px) scale(1.01);
+      border-color: #ff9dbb;
+      box-shadow: 0 18px 36px rgba(159, 91, 142, .18);
+      background: linear-gradient(180deg, #ffffff 0%, #fff0f8 100%);
+    }
+    .category-card .tag {
+      display:inline-block;
+      background: linear-gradient(135deg, #fff1f7, #eef0ff);
+      color: #d63d72;
+      border: 1px solid #ffd5e5;
+      border-radius:999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .category-card h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.35; display:flex; align-items:center; gap:8px; }
+    .category-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .cat-icon {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #fff1f7, #eef0ff);
+      font-size: 18px;
+      flex: 0 0 32px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin: 16px 0 18px;
+    }
+    .pill-row { display:flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      border: 1px solid var(--line);
+      background: #fff8fc;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .pill:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(160, 82, 138, .12);
+    }
+    .pill.active { background: linear-gradient(135deg, var(--accent), var(--accent-blue)); color: #fff; border-color: transparent; }
+    .search {
+      min-width: min(100%, 320px);
+      flex: 1;
+      max-width: 380px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+    }
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,249,253,.9));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .result-note { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+    .faq-list { display: grid; gap: 12px; }
+    details.faq {
+      background: linear-gradient(180deg, #ffffff 0%, #fffafd 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(160, 82, 138, .08);
+    }
+    details.faq[open] { border-color: #ff94b7; box-shadow: 0 14px 28px rgba(160, 82, 138, .14); }
+    details.faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    details.faq summary:hover {
+      background: linear-gradient(90deg, rgba(255, 92, 138, .05), rgba(123, 124, 255, .05));
+    }
+    details.faq summary::-webkit-details-marker { display: none; }
+    .q { font-weight: 700; font-size: 16px; }
+    .category-mini { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+    .chev { color: var(--accent-blue); transition: transform .18s ease; font-size: 18px; }
+    details[open] .chev { transform: rotate(180deg); }
+    .answer { padding: 0 20px 20px; color: #3a2d4d; white-space: pre-wrap; border-top: 1px dashed #ffd5e5; background: rgba(255,255,255,.55); }
+    .empty {
+      text-align: center;
+      padding: 34px 16px;
+      color: var(--muted);
+    }
+    footer { color: var(--muted); font-size: 12px; padding: 26px 0 40px; }
+    @media (max-width: 900px) {
+      .category-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 16px; }
+      .hero-box { padding: 26px 18px; border-radius: 22px; }
+      .category-grid { grid-template-columns: 1fr; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search { max-width: 100%; }
+      details.faq summary { padding: 16px; }
+      .answer { padding: 0 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-box">
+        <div class="eyebrow">窪川中学生向け Q&A サイト試作版</div>
+        <h1>窪川高校Q&Aガイド</h1>
+        <p class="lead">先日の窪川高校説明会後のアンケートで皆さんからいただいた質問、気になることについて回答をまとめました。カテゴリからテーマを選ぶと、質問一覧が表示されます。皆さんの進路選択の参考にしてください。<br>（公開期限7月31日まで）<br><br>ちなみに、窪川高校の情報系コースやデジタルものづくり授業では、このようなウェブサイトを作成する学習も行っています。</p>
+        <div class="hero-icons" aria-hidden="true">
+          <span>🎓</span>
+          <span>💡</span>
+          <span>💻</span>
+          <span>🌈</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="categories">
+      <div class="section-title">
+        <div>
+          <h2>カテゴリ</h2>
+          <p>まずは知りたいテーマを選んでください。</p>
+        </div>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section id="faqSection" style="margin-top:28px;">
+      <div class="section-title">
+        <div>
+          <h2>質問一覧</h2>
+          <p id="currentCategoryLabel">カテゴリを選ぶと、ここに質問一覧が出ます。</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="toolbar">
+          <div class="pill-row" id="quickFilters"></div>
+          <input id="searchInput" class="search" type="search" placeholder="質問や回答を検索" />
+        </div>
+        <div class="result-note" id="resultNote"></div>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </section>
+
+    <footer>
+      元データ: Googleスプレッドシート「【窪川中】学校説明会アンケート（回答）」内の「回答集」をもとに構成。
+    </footer>
+  </div>
+
+  <script>
+    const data = [{"category": "学習・授業", "question": "授業数など", "answer": "1年次は共通科目を中心に学び、2年次からコースに分かれて学びます。月水金は６限、火木は７限授業となっています。詳しい授業時数や単位数は教育課程表で確認できます。"}, {"category": "学習・授業", "question": "どのくらい勉強したらいいですか。", "answer": "見通しを立てて努力しようとする姿勢、素晴らしいですね。一方で、勉強には「これだけやればOK」という上限はありません。なぜなら、知識を深めれば深めるほど、新しい疑問や面白い発見に出会えるからです。もちろん時間や量で自分を律することも必要ですが、さらに言えば、自ら進んで学ぶ姿勢を持ち続けることこそが重要です。毎日の授業を大切にすること、そして何より「おもしろいな」と思える分野を見つけてほしいと思います。"}, {"category": "学習・授業", "question": "国家公務員になるための勉強はできますか", "answer": "進学コースでは公務員を目指す学びや補習、進路指導を受けることができます。地方公務員の合格者は、遠隔授業での公務員補習に参加して、力をつけて合格しています。"}, {"category": "学習・授業", "question": "朝と放課後に予習などの時間があるのか？", "answer": "予習復習のために学校で一律に設定している時間はありません。放課後に学習したい人は、教室で残ったり、自習室や食堂などを利用して学習してから帰っています。 朝は、漢字テストや英単語テストを全校で行う週間が設けられています。"}, {"category": "学習・授業", "question": "勉強についていけるかどうか", "answer": "窪川高校は少人数教育が強みで、先生との距離が近く、分からないことを相談しやすい環境です。補習や個別指導、町営塾『じゆうく。』も活用しながら、自分のペースで力をつけていけます。放課後、何にもない時に先生を捕まえてマンツーマンで勉強を教えてもらうなんて光景も、窪川高校ではよく見られる光景です。ついていこう、頑張ろうと思っている人は全力で応援しますので、先生方を頼ってください！"}, {"category": "学習・授業", "question": "学力が上がらない", "answer": "これは、じっくりお話を聞きたいところです。教科によっても学び方は違うし、個人の性格によっても向き不向きがあります。もし、やっているのに成績が伸びなくて自信を無くしている状態ならば、まずは得意な教科から伸ばしていくのも一つの手段です。苦手なものから取り組みがちですが、「自分のモチベーション」というのはあなどれません。まずは好きな教科、興味のある分野から机に向かう習慣をつけてみてください。あとは、とにかく先生を頼ってみてください。こんなこと聞いたらいかんかなーと思わずに、今の悩みを近くの先生や、「じゆうく。」に相談してみましょう。先生方は教えたり頼られたりするのが大好きな人種なので（個人的主観）、頼られて嫌な顔をする人は少ないはず。もちろん高校に来てもらってもいいですよ！（来にくいでしょうが笑）"}, {"category": "学習・授業", "question": "朝と放課後の補習はどれくらい大切なのか。", "answer": "朝と放課後の補習は一斉にやる時間は設けていません。高校で大切なのは、自分の目標を見つけ、それに向けた学習をすることです。自分の目標と現在地を考えて、必要な勉強を必要なときに行いましょう。共通することとして、宿題はちゃっちゃと早めに終わらせちゃうべきかなー。時間の使い方として有効だと思います！"}, {"category": "学習・授業", "question": "高校に進学するためには平日・休日毎日どれくらい勉強したら良いですか？", "answer": "これも、自分の現在地と目標次第です。今、仮に全く勉強できていないとしたら、いきなり大きな目標を掲げずに、1日10分からでも教科書を開いてみましょう。自分で「ちょっと頑張っらたできそうな目標」を掲げて、そこに向けて努力をする。その計画・実行力を身につける時間と思ってやってみて。10分やったって、成績上がんないじゃんー。・・・それはその通り。でも、だから無駄なんてことはありません。まずは、ちょっとでもいいから続けることなんです。「続ける」ってすごいパワーがいることなのです。好きなことならできるけどね、そうじゃないことを続けるのは大変。そして、続けられたら、続けた自分を大いに褒める。自分は掲げた目標に対してそれを超えることができるのだという良い「セルフイメージ」をつけることが大切です。\n もう一つお伝えしたいのが、高校進学は皆さんの人生のゴールではありません。高校進学のための勉強ではなく、何のために勉強するのか、自分にとってどんな意味を持つのか、そういう自分の考え、意思を持つことが重要なことだと思います。"}, {"category": "学習・授業", "question": "窪川高校はどのような授業をしているのですか。", "answer": "２、３年生になると、コース別、選択科目別の授業になるので、特に少人数の授業が多くなります。たまに、先生とマンツーマンの授業もあったりするぐらいなんですよ（コクコク眠たくなるなんてことが絶対に起きない授業です笑）。先輩たちからは、少人数で先生と話しながら授業が進むから、わからないところをすぐ聞くことができるとよく聞きます。"}, {"category": "入試・受験", "question": "入試のレベル", "answer": "基礎学力をしっかり身に付けていることに加え、日頃の学習状況や面接・プレゼンテーションなどへの準備も大切です。まずは中学校の授業と定期テストを大切にし、自分の強みを伝えられるように準備してみてください！でも、高校入試はゴールではないので、そこの先を考えるのほうが本当はもっと大切です。難しいとは思いますが、５年後、10年後を想像してみてください。中学校３年生の今は、高校入試がものすごく大きな壁に感じられると思いますが、あくまで通過点なのです。「考えること」、これが何よりも重要です。"}, {"category": "入試・受験", "question": "本当に窪川高校に行きたい場合は、フロンティアの受験の方がいいですか？", "answer": "こうちフロンティア募集は、窪川高校で学びたい思いが強く、プレゼンテーションで自分の考えを伝えることが得意な人には有力な選択肢です。でも、それが得意ではない人もいますよね？そういう人は無理にフロンティアを選ぶメリットは少ないはず。出願要件や自分の得意分野との相性もあるので、中学校の先生と相談して決めるのが安心です！"}, {"category": "入試・受験", "question": "偏差値", "answer": "インターネット上に、偏差値一覧など書いてあることがありますが、正式なものではありません。というのも、偏差値というのは、そもそも同じテストを受けた集団の中で平均値よりどのくらい離れているかという数字です。高知県教委は各高校の昨年度の入試時の点数平均等を公表していませんので、正確な数値はわからないのです。よく出ている数字は、塾で一斉模試などを受けている一部の生徒の点数のみを計算しています。窪川高校に来ている生徒さんは塾で勉強している人は多くないので、信ぴょう性に欠ける数値なのであまり振り回されないでくださいね。もちろんいわゆる進学校と言われる学校との差はあります！が、それ以外の学校において、偏差値は意味のある数値ではないというのが実情です。"}, {"category": "入試・受験", "question": "面接はどんな風に受けるのか", "answer": "面接では、志望理由、中学校で頑張ったこと、高校で挑戦したいこと、将来の目標などを聞かれることが多いです。あいさつ、受け答え、相手の目を見て話すことを意識して練習してみてくださいね！"}, {"category": "入試・受験", "question": "点数が達していないし、内申点があまり良くないかもだから自分の行きたい高校に行けるか不安です。", "answer": "諦めるのはまだ早い！はっきりと行きたい高校があるというのは、とても大きな強みです。目標がある人は強い。その目標が明確であればあるほど強い。なぜその高校に行きたいのか、そこでどんな高校生活を送りたいのか、たくさん想像して、その姿を実現できるように、いや、絶対に実現してやるんだ！！という強い気持ちで頑張ってください。"}, {"category": "コース・カリキュラム", "question": "カリキュラムがどうなっているか", "answer": "1年次は基礎を広く学び、2年次から『地域リーダー養成コース』と『進学コース』に分かれて学びます。進学コースでは、理系、情報系、文系に分かれます。地域リーダー養成コースは農業、商業に分かれます。どちらでも就職・進学が可能ですが、大学を目指している人は進学コースに進んでおくことをおすすめします。"}, {"category": "コース・カリキュラム", "question": "コースでどのようなことをするか", "answer": "地域リーダー養成コースでは農業・商業などの産業系の学びや実習、地域との関わりを深めます。進学コースでは大学・短大・公務員などを見据え、文系・理系・情報系に分かれて学力向上を目指します。"}, {"category": "コース・カリキュラム", "question": "地域リーダー育成コースではどんな進路がありますか", "answer": "進学であれば農業コースでは、農業大学校に行ったりして専門性を身につける道に進む人もいますが、農業とあまり関係のない専門学校へ進む人もいます。商業コースでは経済などの関連分野を学ぶ大学へ進む人もいます。しかし、農業と同様に商業とあまり関係のない専門学校へ進む人もいます。\n就職では農業系の企業への就職もありますが、特に農業という分野に縛られることはありません。商業コースでも同様です。農業商業を勉強しても、進路をそこに狭めることなく選択することができる状態です。"}, {"category": "学校生活", "question": "校則", "answer": "全ての校則をお伝えするのは難しいですが、例えば、スマホは朝のホームから帰りのホームまで専用ロッカーにしまうこと、学校に来るときは制服または生活服で登校することなどがありますが、中学校の時の生活と比べてびっくりするような校則はないと思います。２年前に、制服に加えて生活服が認められているなど、生徒の声を生かす工夫もあります。また、すべての高校では義務教育とは違い授業の「欠課」があります。これは校則ではありませんが、授業を３分の２以上出席できなければ、その単位が取得できなくなる、３回遅刻で１回の欠課とカウントするなど、単位取得のためのルールがあります。"}, {"category": "学校生活", "question": "普段の学校生活はどのようなものか", "answer": "「ゆるっとあったかい」は本当にそのままだと思います。それぞれに勉強を頑張ったり、部活を楽しんだり、友達や先生とのおしゃべりを楽しんだりをしています。少人数なので先生や友達と関わりやすく、学校全体で支え合いながら生活できる雰囲気があります。放課後は、自分のホーム教室以外に、部室、食堂、デジタルラボ、図書室、自習室など、生徒が自由に使える場所があるのも特徴です。それぞれにお気に入りの場所を見つけて過ごしています。"}, {"category": "学校生活", "question": "高校楽しいですか", "answer": "楽しいよ！と答える先輩が多いと思います。学校生活の楽しさは人それぞれですが、行事や地域活動、部活動などを通して『やってみたいこと』に挑戦しやすい学校ですし、「生徒の挑戦を後押しする」というのは、窪川高校が力をいれているところです。また、「ストレスと感じることが少ない」というのも、生徒ヒアリングから見えてきたことです。みんながみんな、何かを全力で頑張っているというわけではありません。が、多くの生徒が「楽しい」と表現する理由を掘り下げていくと、友達関係、先生とのやりとり等々で、ストレスがないことが大きな要因になっている生徒もいるように思います。"}, {"category": "学校生活", "question": "自分に合うのか", "answer": "少人数で丁寧に見てもらいたい人、地域と関わる学びや新しいことへの挑戦に興味がある人には合いやすい学校です。逆に、大人数の中で切磋琢磨しながら、自分を高めたいという「ファイター」タイプの人は、合わないかもしれません。迷っている学校は、体験入学に行って、雰囲気を感じてみるのが一番です！"}, {"category": "部活動・同好会", "question": "バスケ部を作って欲しいです", "answer": "バスケ部はあります！部員が増えると先輩たちが大喜びします。他にも、今ないけれどもやってみたいこと、窪川高校では実現できますので、ぜひ相談してくださいね。"}, {"category": "部活動・同好会", "question": "野球部入るためにはなにが必要ですか？", "answer": "野球部の監督に確認したところ「・・・グローブかな？」とのことでした！笑　気負わずに入部を検討してください。が、野球部は、窪川高校の他の部活よりも練習量が多いので、やる気・根気も必要かもしれません。頑張って！"}, {"category": "部活動・同好会", "question": "新しく同好会や部活を作った際、部や同好会の備品は私物を使用してもよろしいでしょうか。", "answer": "何を使おうとしているのかにもよりますが、安全面や管理面で問題がなければ、使ってもらっても構いません。入学してからまた担任や顧問に相談してみてくださいね＾＾"}, {"category": "部活動・同好会", "question": "英語部ってありますか？", "answer": "現在、英語部はありません・・・作りましょう！窪川高校は国際交流に力を入れていて、韓国とのオンライン交流も年に３、４回あります。それ以外の機会も増えたらいいなーと思っているので、そのような気持ちを持っている人が入学してくれたら嬉しいです。\n部活を立ち上げるまでいかなくても、自由にやってみたいことができる「しまんと部」がありますので、そこで英語を使うプロジェクトを立ち上げるのはどうでしょう？岩本寺などには海外の方もよくきています。もっと外国語対応が必要だけど、追いついていないところが窪川の地域ではあるはずなので、その課題に対して実践的に英語を使いながら学ぶということが可能です。高校にはALTの先生が週２回きていますし、四万十町のALTの先生と触れ合うこともできますよ。ALTの先生と昼休みにランチをしながら英会話できるなんていうのも、少人数学校ならではじゃないでしょうか。"}, {"category": "進路・将来", "question": "大学に行くにはどこの高校がいいですか", "answer": "言葉通り「大学に行く」ということだけを考えるならば、「どの高校でも大丈夫」という答えになります。どんな大学に行きたいのか、何をそこで学びたいのかによって、学ぶべき内容が変わってきます。そして、『大学に行けるかどうか』よりも、『自分が3年間しっかり学び続けられる高校』を選ぶということも大切かと思います。勉強の仕方には自分の向き不向きがあります。先生に聞きやすい、少人数でやる方が伸びる人もいれば、大人数の中で競い合うことによって伸びる人もいます。自分の性格を見つめて、自分に合った学び方ができる高校を選んでくださいね。ちなみに、窪川高校では、「じゆうく。」もあるので、個別の学習計画に沿って力をつけることができますよ！"}, {"category": "進路・将来", "question": "専門的なところに行きたいけどそれより上が目指せそうなとき、どっちを選んだら良いですか。", "answer": "うーん、これは難しいので適当なことは言えませんが、あくまで一個人の考えとして聞いてください。「上」というのが偏差値的なことを指しているのだとしたら、昔に比べて、この数字は意味を持たなくなってきています。「上」の高校に行ったから「上」の大学に行けるわけでもなく、ましてや「上」の大学に行ったら、いわゆる「上」の就職先につけるとも限らない。\n学歴社会が崩れたとまでは言いませんが、一昔前の「学歴至上主義」のような時代ではなくなっています。新卒の時の大学名はある程度意味がありますが、最初だけです。30代にもなったら、大学名なんて聞かれません。1つの会社で定年まで勤め上げるという時代は終わり、転職することが大前提の社会の中で、学歴で戦えるのは最初だけ。それよりも、自分は何に興味があって、どんな人生を歩んできて、この社会で何を実現したいと考えているのかを言葉にして実行できる力の方が遥かに強いです。\n「上」の学校という意味で選ぶのではなく、そこで何を学びたいのか、どんな学びが自分に合っているのかということを考えてみてください。そして、今の社会は変化のスピードが激しくて、どんな専門家も10年後の未来を予測しづらいのが現状です。専門家が未来予測を外してます。つまり、皆さんの周りにいる、アドバイスをくれる大人たちも、みんなこの先のことはわかっていないんです。残念ながら。もちろん、その方々もこれまでの経験で感じていることを皆さんに伝えているわけですが、それが正しいかどうかは全くわからない。かといって先達たちの言葉を聞くことに意味がないなんてことは絶対にないです。たくさんの先達たちの声を聞いて、ネットや本を読んで情報を収集して、自分で考えて判断するしかない。・・・難しいですね( ´Д`)y━･~~"}, {"category": "進路・将来", "question": "高校選びはどうやって選べばいいか", "answer": "自分をよく知ることが大切です。自分の性格、身体的特徴、考え方の癖、趣味嗜好、大切にしたいことなど。高校の情報収集と同じくらい、自分のことを掘り下げる時間をとってください。そうじゃないと、高校の特徴を知っても、何が自分に合っているのかがわからないのではないでしょうか。例えば、「通学の距離」一つとっても、これがどのくらい高校選びに重要かは人それぞれなんです。朝６時に家を出ることは大変だけど苦にならない人もいれば、めちゃくちゃ朝が苦手でそれだけでぐったりしちゃう人もいます。これは努力とか怠惰とかの話ではなく、一生付き合っていくはずの自分の特徴です。自分にとって、大切なことは何なのか、何が心地よくて、何が辛いのか、優先順位は何なのかを考えてみてください！"}, {"category": "進路・将来", "question": "進学実績", "answer": "進学先は、国公立大学では、高知大学、高知工科大学、高知県立大学など、その他、私立大学、短大、専門学校など幅広い実績があります。自分の進路に合わせて個別に支援を受けられることが強みです。"}, {"category": "進路・将来", "question": "卒業後の進路", "answer": "卒業後は、大学・短大・専門学校への進学だけでなく、地元や県内外の企業、公務員などへの就職もあります。一人ひとりの希望に合わせて進路を考えていけるのが特徴です。詳細は、学校案内を見てみてください！"}, {"category": "進路・将来", "question": "夢を叶えられますか？", "answer": "「えんぴつ町のプペル」という映画を知っていますか？プペルが教えてくれるものは、夢を持ち続けるならば傷つく覚悟も必要、それでも信じたならば行動すること、そうして誰かが信じて、信じて、動き続けたことで、世界は変えられるんだ。そんなことを伝えてくれているように思います。「夢は信じれば叶うよ！」なんて軽いことは言えません。が、信じて、信じて、勇気を持って行動した人にしか見えない景色があると信じています。それは「夢を叶える」とはまた違う意味を持っているんじゃないかな、なんて思ったり。（人の夢と書いて「儚い」となります。実現するための努力と行動が伴わないと「儚く」終わってしまうでしょうね。byとある窪高教員）\n今感じてる夢も掘り下げると色んな要素が出てくるものなんです。例えば、「プロサッカー選手になる」という夢をもっていたとする。これを掘り下げてみると、なんでプロなの？なんでサッカーなの？なんで選手なの？という問いになります。プロになるということはそれを職業にするということ。自分の好きなことを仕事にするということに憧れているならばサッカーじゃなくてもOK。サッカーという点で言うと、例えばフォワードだとして「自分で点数を決める」と言うことに楽しさを見出している人は、会社員になった時に、営業のように自分でガンガン売り込みに行くのが向いているかもしれないし、もしくは自分で起業をして自分でやったことの価値を社会的な点数にすることでもいいのかもしれない。とかですね、夢を持つのは素晴らしいことですが、夢は変化します。それは逃げでも負けでもありません。視野が広がったというだけ。もちろん、逃げや負けの場合だってあるでしょう、でもそれはサッカー選手になったかどうかではなく、自分の人生の価値やこれからの目標を、自分で感じているかどうかということなんじゃないかなと思います。"}, {"category": "通学・生活ルール", "question": "通学や偏差値", "answer": "通学のしやすさは高校選びでとても大切です。偏差値だけでなく、毎日通い続けられるか、学校の学びや雰囲気が自分に合うかも合わせて考えてください！偏差値の話や高校選びは「進路・将来」カテゴリーで詳しく書いているので、ぜひ見てみてくださいね。"}, {"category": "通学・生活ルール", "question": "いくつの通学手段が今あるのか", "answer": "保護者の送迎、徒歩、自転車、汽車、原付自転車が通学手段として挙げられます。保護者の送迎が最近は多いです。"}, {"category": "通学・生活ルール", "question": "バイトできる？", "answer": "アルバイトをする場合は、学校にバイト許可申請をします。1年生の１学期のテストで、赤点をとった場合はアルバイトの許可がおりません。勉強も部活もバイトも欲張って頑張ってみましょう。そういう意味でも通学距離が短いというのは、大きなポイントになりますよ！"}];
+    const categories = ["学習・授業", "入試・受験", "コース・カリキュラム", "学校生活", "部活動・同好会", "進路・将来", "通学・生活ルール"];
+    const categoryCounts = {"学習・授業": 9, "入試・受験": 5, "コース・カリキュラム": 3, "学校生活": 4, "部活動・同好会": 4, "進路・将来": 6, "通学・生活ルール": 3};
+
+    const categoryGrid = document.getElementById('categoryGrid');
+    const quickFilters = document.getElementById('quickFilters');
+    const faqList = document.getElementById('faqList');
+    const resultNote = document.getElementById('resultNote');
+    const searchInput = document.getElementById('searchInput');
+    const currentCategoryLabel = document.getElementById('currentCategoryLabel');
+
+    const categoryIcons = {
+      '学習・授業': '📘',
+      '入試・受験': '📝',
+      '進路・将来': '🌟',
+      '学校生活': '🏫',
+      '部活動・同好会': '⚽',
+      'コース・カリキュラム': '🧭',
+      '通学・生活ルール': '🚃'
+    };
+
+    let selectedCategory = categories[0] || 'すべて';
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function buildCategoryCards() {
+      categoryGrid.innerHTML = categories.map(cat => `
+        <button class="category-card ${selectedCategory === cat ? 'active' : ''}" data-cat="${escapeHtml(cat)}">
+          <span class="tag">${categoryCounts[cat]}件</span>
+          <h3><span class="cat-icon">${categoryIcons[cat] || '📁'}</span>${escapeHtml(cat)}</h3>
+          <p>このカテゴリの質問を見る</p>
+        </button>
+      `).join('');
+
+      [...categoryGrid.querySelectorAll('.category-card')].forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedCategory = btn.dataset.cat;
+          buildCategoryCards();
+          buildQuickFilters();
+          renderFaqs();
+          document.getElementById('faqSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    function buildQuickFilters() {
+      const pills = ['すべて', ...categories];
+      quickFilters.innerHTML = pills.map(cat => `
+        <button class="pill ${(cat === 'すべて' && !selectedCategory) || selectedCategory === cat ? 'active' : ''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>
+      `).join('');
+      [...quickFilters.querySelectorAll('.pill')].forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cat = btn.dataset.cat;
+          selectedCategory = cat === 'すべて' ? '' : cat;
+          buildCategoryCards();
+          buildQuickFilters();
+          renderFaqs();
+        });
+      });
+    }
+
+    function renderFaqs() {
+      const keyword = searchInput.value.trim().toLowerCase();
+      const filtered = data.filter(item => {
+        const byCategory = !selectedCategory || item.category === selectedCategory;
+        const byKeyword = !keyword || (`${item.question}
+${item.answer}
+${item.category}`).toLowerCase().includes(keyword);
+        return byCategory && byKeyword;
+      });
+
+      currentCategoryLabel.textContent = selectedCategory ? `「${selectedCategory}」の質問一覧` : 'すべての質問一覧';
+      resultNote.textContent = `${filtered.length}件表示中${keyword ? ' ／ 検索: ' + searchInput.value : ''}`;
+
+      if (!filtered.length) {
+        faqList.innerHTML = '<div class="empty">該当する質問が見つかりませんでした。検索語やカテゴリを変えてみてください。</div>';
+        return;
+      }
+
+      faqList.innerHTML = filtered.map((item, index) => `
+        <details class="faq">
+          <summary>
+            <div>
+              <div class="category-mini">${categoryIcons[item.category] || '📁'} ${escapeHtml(item.category)}</div>
+              <div class="q">${escapeHtml(item.question)}</div>
+            </div>
+            <div class="chev">⌄</div>
+          </summary>
+          <div class="answer">${escapeHtml(item.answer)}</div>
+        </details>
+      `).join('');
+    }
+
+    searchInput.addEventListener('input', renderFaqs);
+
+    buildCategoryCards();
+    buildQuickFilters();
+    renderFaqs();
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
